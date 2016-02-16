@@ -1,0 +1,444 @@
+        -:    0:Source:Graph.h
+        -:    0:Graph:TestGraph.gcno
+        -:    0:Data:TestGraph.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:// ----------------------
+        -:    2:// projects/graph/Graph.h
+        -:    3:// Copyright (C) 2014
+        -:    4:// Glenn P. Downing
+        -:    5:// ----------------------
+        -:    6:
+        -:    7:#ifndef Graph_h
+        -:    8:#define Graph_h
+        -:    9:
+        -:   10:// --------
+        -:   11:// includes
+        -:   12:// --------
+        -:   13:
+        -:   14:#include <cassert> // assert
+        -:   15:#include <cstddef> // size_t
+        -:   16:#include <utility> // make_pair, pair
+        -:   17:#include <vector>  // vector
+        -:   18:#include <set>     // set
+        -:   19:
+        -:   20:
+        -:   21:// -----
+        -:   22:// Graph
+        -:   23:// -----
+        -:   24:
+function _ZN5GraphD2Ev called 82 returned 100% blocks executed 100%
+       82:   25:class Graph {
+call    0 returned 100%
+call    1 returned 100%
+call    2 returned 100%
+        -:   26:    public:
+        -:   27:        // --------
+        -:   28:        // typedefs
+        -:   29:        // --------
+        -:   30:
+        -:   31:        typedef int vertex_descriptor;  
+        -:   32:        typedef std::pair<vertex_descriptor, vertex_descriptor> edge_descriptor;    
+        -:   33:
+        -:   34:        public:
+        -:   35:            class vertex_iterator : public std::iterator<std::bidirectional_iterator_tag, vertex_descriptor>{
+        -:   36:                public:
+function _ZeqRKN5Graph15vertex_iteratorES2_ called 22 returned 100% blocks executed 100%
+       22:   37:                    friend bool operator == (const vertex_iterator& lhs, const vertex_iterator& rhs) {
+       22:   38:                        return (lhs._it == rhs._it);}
+call    0 returned 100%
+        -:   39:
+function _ZneRKN5Graph15vertex_iteratorES2_ called 14 returned 100% blocks executed 100%
+       14:   40:                    friend bool operator != (const vertex_iterator& lhs, const vertex_iterator& rhs) {
+       14:   41:                        return !(lhs == rhs);}
+call    0 returned 100%
+        -:   42:
+        -:   43:                    friend vertex_iterator operator + (vertex_iterator lhs, int rhs){
+        -:   44:                        return lhs += rhs;
+        -:   45:                    }
+        -:   46:
+        -:   47:                    friend vertex_iterator operator - (vertex_iterator lhs, int rhs){
+        -:   48:                        return lhs -= rhs;
+        -:   49:                    }
+        -:   50:
+        -:   51:                private:
+        -:   52:                    std::set<vertex_descriptor>::const_iterator _it;
+        -:   53:
+        -:   54:                public:
+function _ZN5Graph15vertex_iteratorC2ESt23_Rb_tree_const_iteratorIiE called 30 returned 100% blocks executed 100%
+       30:   55:                    vertex_iterator(std::set<vertex_descriptor>::const_iterator IT) : _it(IT){
+call    0 returned 100%
+       30:   56:                        _it = IT;
+       30:   57:                    }
+        -:   58:
+function _ZNK5Graph15vertex_iteratordeEv called 14 returned 100% blocks executed 100%
+       14:   59:                    vertex_descriptor operator * () const{
+       14:   60:                        const vertex_descriptor v = *_it;
+call    0 returned 100%
+       14:   61:                        return v;
+        -:   62:                    }
+        -:   63:                    vertex_iterator operator ++ (int) {
+        -:   64:                        return _it++;
+        -:   65:                    }
+        -:   66:                    vertex_iterator operator -- (int) {
+        -:   67:                        return _it--;
+        -:   68:                    }
+function _ZN5Graph15vertex_iteratorppEv called 14 returned 100% blocks executed 100%
+       14:   69:                    vertex_iterator operator ++ () {
+       14:   70:                        return ++_it;
+call    0 returned 100%
+call    1 returned 100%
+        -:   71:                    }
+        -:   72:                    vertex_iterator operator -- () {
+        -:   73:                        return --_it;
+        -:   74:                    }
+        -:   75:                    //This is Linear, bad Andrew, Too slow
+        -:   76:                    vertex_iterator& operator += (int d){
+        -:   77:                        while(d > 0){
+        -:   78:                            ++(*this);
+        -:   79:                            --d;
+        -:   80:                        }
+        -:   81:                        return *this;
+        -:   82:                    }
+        -:   83:                    vertex_iterator& operator -= (int d){
+        -:   84:                        while(d > 0){
+        -:   85:                            --(*this);
+        -:   86:                            --d;
+        -:   87:                        }
+        -:   88:                        return *this;
+        -:   89:                    }
+        -:   90:            };
+        -:   91:
+        -:   92:        typedef std::set<edge_descriptor>::const_iterator edge_iterator;
+        -:   93:
+        -:   94:       
+        -:   95:
+        -:   96:        typedef std::set<vertex_descriptor>::const_iterator adjacency_iterator; 
+        -:   97:
+        -:   98:        typedef std::size_t vertices_size_type;
+        -:   99:        typedef std::size_t edges_size_type;
+        -:  100:
+        -:  101:    public:
+        -:  102:        // --------
+        -:  103:        // add_edge
+        -:  104:        // --------
+        -:  105:
+        -:  106:        /*
+        -:  107:        Structure Modification
+        -:  108:        Adds edge (u,v) to the graph and returns the edge descriptor for the new edge. For graphs that do not allow parallel 
+        -:  109:        edges, if the edge is already in the graph then a duplicate will not be added and the bool flag will be false. When 
+        -:  110:        the flag is false, the returned edge descriptor points to the already existing edge.
+        -:  111:        */
+function _Z8add_edgeiiR5Graph called 100 returned 100% blocks executed 82%
+      100:  112:        friend std::pair<edge_descriptor, bool> add_edge (vertex_descriptor u, vertex_descriptor v, Graph& g) {
+        -:  113:            bool b;
+      100:  114:            edge_descriptor ed;
+        -:  115:            
+        -:  116:            //If vertex does not excist, create all vertexes up to and including that one
+      200:  117:            while((int)(g.list).size() <= v){
+call    0 returned 100%
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+    #####:  118:                add_vertex(g);
+branch  0 never executed
+branch  1 never executed
+call    2 never executed
+        -:  119:            }
+      200:  120:            while((int)(g.list).size() <= u){
+call    0 returned 100%
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+    #####:  121:                add_vertex(g);
+branch  0 never executed
+branch  1 never executed
+call    2 never executed
+        -:  122:            }
+        -:  123:
+      100:  124:            b = ((g.list)[u].insert(v)).second;
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+call    3 returned 100%
+        -:  125:
+      100:  126:            ed = std::make_pair(u, v);
+call    0 returned 100%
+call    1 returned 100%
+        -:  127:
+      100:  128:            (g.edgS).insert(ed);
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0% (throw)
+call    2 returned 100%
+        -:  129:
+      100:  130:            return std::make_pair(ed, b);
+call    0 returned 100%
+call    1 never executed
+        -:  131:        }
+        -:  132:
+        -:  133:        // ----------
+        -:  134:        // add_vertex
+        -:  135:        // ----------
+        -:  136:
+        -:  137:        /*
+        -:  138:        Structure Modification
+        -:  139:        Adds a vertex to the graph and returns the vertex descriptor for the new vertex.
+        -:  140:        */
+function _Z10add_vertexR5Graph called 198 returned 100% blocks executed 64%
+      198:  141:        friend vertex_descriptor add_vertex (Graph& g) {
+      198:  142:            vertex_descriptor v = (g.list).size();
+call    0 returned 100%
+      198:  143:            std::set<vertex_descriptor> s;
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0% (throw)
+call    2 returned 100%
+      198:  144:            (g.list).push_back(s);
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0% (throw)
+call    2 returned 100%
+      198:  145:            (g.vecS).insert(v + 1); 
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0% (throw)
+call    2 returned 100%
+      198:  146:            return v;
+call    0 returned 100%
+call    1 never executed
+call    2 never executed
+        -:  147:        }
+        -:  148:
+        -:  149:        // -----------------
+        -:  150:        // adjacent_vertices
+        -:  151:        // -----------------
+        -:  152:
+        -:  153:        /*
+        -:  154:        Non-Member Function
+        -:  155:        Returns an iterator-range providing access to the vertices adjacent to vertex u in graph g. For example, if u -> v is 
+        -:  156:        an edge in the graph, then v will be in this iterator-range.
+        -:  157:        */
+function _Z17adjacent_verticesiRK5Graph called 8 returned 100% blocks executed 100%
+        8:  158:        friend std::pair<adjacency_iterator, adjacency_iterator> adjacent_vertices (vertex_descriptor u, const Graph& g) {
+        8:  159:            adjacency_iterator b = (g.list)[u].begin();
+call    0 returned 100%
+call    1 returned 100%
+        8:  160:            adjacency_iterator e = (g.list)[u].end();
+call    0 returned 100%
+call    1 returned 100%
+        8:  161:            return std::make_pair(b, e);
+call    0 returned 100%
+        -:  162:        }
+        -:  163:
+        -:  164:        // ----
+        -:  165:        // edge
+        -:  166:        // ----
+        -:  167:
+        -:  168:        /*
+        -:  169:        Non-Member Function
+        -:  170:        If an edge from vertex u to vertex v exists, return a pair containing one such edge and true. If there are no edges 
+        -:  171:        between u and v, return a pair with an arbitrary edge descriptor and false.
+        -:  172:        */
+function _Z4edgeiiRK5Graph called 20 returned 100% blocks executed 84%
+       20:  173:        friend std::pair<edge_descriptor, bool> edge (vertex_descriptor u, vertex_descriptor v, const Graph& g) {
+       20:  174:            edge_descriptor ed = std::make_pair(u, v);
+call    0 returned 100%
+        -:  175:            bool b;
+       20:  176:            int size = (g.list).size();
+call    0 returned 100%
+        -:  177:
+       20:  178:            if((v < size) && (u < size)){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+       40:  179:                if((g.list)[u].find(v) != (g.list)[u].end()){
+call    0 returned 100%
+call    1 returned 100%
+call    2 returned 100%
+branch  3 taken 100% (fallthrough)
+branch  4 taken 0% (throw)
+call    5 returned 100%
+call    6 returned 100%
+branch  7 taken 90% (fallthrough)
+branch  8 taken 10%
+call    9 never executed
+       18:  180:                    b = true;
+        -:  181:                }
+        -:  182:                else{
+        2:  183:                    b = false;
+        -:  184:                }
+        -:  185:            }
+        -:  186:            else{
+    #####:  187:                b = false;
+        -:  188:            }
+        -:  189:
+       20:  190:            return std::make_pair(ed, b);
+call    0 returned 100%
+        -:  191:        }
+        -:  192:
+        -:  193:        // -----
+        -:  194:        // edges
+        -:  195:        // -----
+        -:  196:
+        -:  197:        /*
+        -:  198:        Non-Member Function
+        -:  199:        Returns an iterator-range providing access to the edge set of graph g.
+        -:  200:        */
+function _Z5edgesRK5Graph called 8 returned 100% blocks executed 100%
+        8:  201:        friend std::pair<edge_iterator, edge_iterator> edges (const Graph& g) {    
+        8:  202:            edge_iterator b = (g.edgS).begin();
+call    0 returned 100%
+        8:  203:            edge_iterator e = (g.edgS).end();
+call    0 returned 100%
+        8:  204:            return std::make_pair(b, e);
+call    0 returned 100%
+        -:  205:        }
+        -:  206:
+        -:  207:        // ---------
+        -:  208:        // num_edges
+        -:  209:        // ---------
+        -:  210:
+        -:  211:        /*
+        -:  212:        Non-Member Function
+        -:  213:        Returns the number of edges in the graph g.
+        -:  214:        */
+function _Z9num_edgesRK5Graph called 22 returned 100% blocks executed 100%
+       22:  215:        friend edges_size_type num_edges (const Graph& g) {
+       22:  216:            edges_size_type s = (g.edgS).size(); 
+call    0 returned 100%
+       22:  217:            return s;
+        -:  218:        }
+        -:  219:
+        -:  220:        // ------------
+        -:  221:        // num_vertices
+        -:  222:        // ------------
+        -:  223:
+        -:  224:        /*
+        -:  225:        Non-Member Function
+        -:  226:        Returns the number of vertices in the graph g.
+        -:  227:        */
+function _Z12num_verticesRK5Graph called 14 returned 100% blocks executed 100%
+       14:  228:        friend vertices_size_type num_vertices (const Graph& g) {
+       14:  229:            vertices_size_type s = (g.list).size(); 
+call    0 returned 100%
+       14:  230:            return s;
+        -:  231:        }
+        -:  232:
+        -:  233:        // ------
+        -:  234:        // source
+        -:  235:        // ------
+        -:  236:
+        -:  237:        /*
+        -:  238:        Non-Member Function
+        -:  239:        Returns the source vertex of edge e.
+        -:  240:        */
+function _Z6sourceSt4pairIiiERK5Graph called 12 returned 100% blocks executed 100%
+       12:  241:        friend vertex_descriptor source (edge_descriptor e, const Graph& g) {
+       12:  242:            vertex_descriptor v = e.first; 
+       12:  243:            return v;
+        -:  244:        }
+        -:  245:
+        -:  246:        // ------
+        -:  247:        // target
+        -:  248:        // ------
+        -:  249:
+        -:  250:        /*
+        -:  251:        Non-Member Function
+        -:  252:        Returns the target vertex of edge e.
+        -:  253:        */
+function _Z6targetSt4pairIiiERK5Graph called 12 returned 100% blocks executed 100%
+       12:  254:        friend vertex_descriptor target (edge_descriptor e, const Graph& g) {
+       12:  255:            vertex_descriptor v = e.second; 
+       12:  256:            return v;
+        -:  257:        }
+        -:  258:
+        -:  259:        // ------
+        -:  260:        // vertex
+        -:  261:        // ------
+        -:  262:
+        -:  263:        /*
+        -:  264:        Non-member Function
+        -:  265:        Returns the nth vertex in the graph's vertex list.
+        -:  266:        */
+function _Z6vertexmRK5Graph called 10 returned 100% blocks executed 100%
+       10:  267:        friend vertex_descriptor vertex (vertices_size_type n, const Graph& g) {
+       10:  268:            return n;
+        -:  269:        }
+        -:  270:
+        -:  271:        // --------
+        -:  272:        // vertices
+        -:  273:        // --------
+        -:  274:
+        -:  275:        /*
+        -:  276:        Non-Member Function
+        -:  277:        Returns an iterator-range providing access to the vertex set of graph g.
+        -:  278:        */
+function _Z8verticesRK5Graph called 8 returned 100% blocks executed 100%
+        8:  279:        friend std::pair<vertex_iterator, vertex_iterator> vertices (const Graph& g) {
+        8:  280:            vertex_iterator b = (g.vecS).begin();
+call    0 returned 100%
+call    1 returned 100%
+        8:  281:            vertex_iterator e = --(g.vecS).end();
+call    0 returned 100%
+call    1 returned 100%
+call    2 returned 100%
+        8:  282:            return std::make_pair(b, e);
+call    0 returned 100%
+        -:  283:        }
+        -:  284:
+        -:  285:    private:
+        -:  286:        // ----
+        -:  287:        // data
+        -:  288:        // ----
+        -:  289:
+        -:  290:        std::vector< std::set<vertex_descriptor> > list; // something like this, represent the vertex
+        -:  291:        std::set< vertex_descriptor > vecS;
+        -:  292:        std::set< edge_descriptor> edgS;
+        -:  293:
+        -:  294:        // -----
+        -:  295:        // valid
+        -:  296:        // -----
+        -:  297:
+        -:  298:        /*
+        -:  299:        Determines if the Graph you are operating on is valid.
+        -:  300:        */
+function _ZNK5Graph5validEv called 82 returned 100% blocks executed 100%
+       82:  301:        bool valid () const {
+       82:  302:            return true;}
+        -:  303:
+        -:  304:    public:
+        -:  305:        // ------------
+        -:  306:        // constructors
+        -:  307:        // ------------
+        -:  308:
+        -:  309:        /*
+        -:  310:        Member Function
+        -:  311:        Default Constructor
+        -:  312:        Creates an empty graph object with zero vertices and zero edges.
+        -:  313:        */
+function _ZN5GraphC2Ev called 82 returned 100% blocks executed 47%
+       82:  314:        Graph () {
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+call    3 returned 100%
+branch  4 taken 100% (fallthrough)
+branch  5 taken 0% (throw)
+call    6 returned 100%
+call    7 never executed
+call    8 never executed
+call    9 never executed
+call   10 never executed
+       82:  315:            vecS.insert(0);
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0% (throw)
+call    2 returned 100%
+       82:  316:            assert(valid());}
+call    0 returned 100%
+branch  1 taken 0% (fallthrough)
+branch  2 taken 100%
+call    3 never executed
+        -:  317:
+        -:  318:        // Default copy, destructor, and copy assignment
+        -:  319:        // Graph  (const Graph<T>&);
+        -:  320:        // ~Graph ();
+        -:  321:        // Graph& operator = (const Graph&);
+        -:  322:    };
+        -:  323:
+        -:  324:#endif // Graph_h

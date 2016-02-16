@@ -1,0 +1,19 @@
+#Gitignore file for cs378-graph repo
+#Ignoring .gcov, .gcno, and .gcda files
+*.gcov
+*.gcno
+*.gcda
+
+#Inlucding TestGraph.gcov, and Graph.gcov
+!TestGraph.c++.gcov
+!Graph.h.gcov
+
+#Ignoring the sample output
+TestGraph.sample.out
+
+#Ignoring Unit Test files for public test repo
+vohl0803-TestGraph.c++
+vohl0803-TestGraph.out
+
+#Ignore Doxyfile
+Doxyfile

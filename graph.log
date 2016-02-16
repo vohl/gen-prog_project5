@@ -1,0 +1,73 @@
+commit 173f6331c7ed125e20f77cb6afcf42dc6ef474c8
+Author: Andrew Vohl <vohl0803@cs.utexas.edu>
+Date:   Thu Aug 7 11:09:53 2014 -0500
+
+    Graph running and working. May be final push
+    closes #10, closes #9, closes #8, closes #6, closes #3, closes #14
+
+commit 88fe1f409ebd25557b8b659ee451932d6b792375
+Author: vohl0803 <acvohl@gmail.com>
+Date:   Wed Aug 6 11:41:29 2014 -0500
+
+    Still broken, pushing in order to pull on cs machines
+
+commit c3ff1cd38cc5ea46b1db8fdd591d725e9c57f0af
+Author: vohl0803 <acvohl@gmail.com>
+Date:   Wed Aug 6 09:49:16 2014 -0500
+
+    vertex iterator working, broken code, changing edge iterator
+
+commit ad8fed9d4d3c4ef408167e4e86ee1d7bda6eccc0
+Author: Thien Vo <vohuythien@utexas.edu>
+Date:   Tue Aug 5 06:58:45 2014 -0500
+
+    Finished test cases for current available functions
+
+commit 345b8a550d31f35c96b8120e7e503fc94f748b52
+Author: Andrew Vohl <vohl0803@cs.utexas.edu>
+Date:   Thu Jul 31 19:30:14 2014 -0500
+
+    Random push. Something to pull from my loacl machine
+
+commit 54d41d2c4cb3dfe61bfb73ccbaf02713a8cfe1f8
+Author: Andrew Vohl <vohl0803@cs.utexas.edu>
+Date:   Thu Jul 31 12:23:41 2014 -0500
+
+    closes #5, closes #7, closes #2, closes #4
+
+commit df2707f0fbb2ca44efe2a466c272f2f3526387fa
+Author: Andrew Vohl <vohl0803@cs.utexas.edu>
+Date:   Thu Jul 31 10:24:45 2014 -0500
+
+    Useless commit
+
+commit b20199001bc9be5236d30ccd4fbd8524e202acdf
+Author: Andrew Vohl <vohl0803@cs.utexas.edu>
+Date:   Thu Jul 31 10:17:57 2014 -0500
+
+    closes #13;
+
+commit f82f447a8d3d868ecaf1fa0de4ec95effa6eb7a5
+Author: Andrew Vohl <vohl0803@cs.utexas.edu>
+Date:   Thu Jul 31 10:15:13 2014 -0500
+
+    Testing the .gitignore file
+
+commit b4c18aedfaca7cc6fea24b8d18b438a589fac9ef
+Author: vohl0803 <acvohl@gmail.com>
+Date:   Thu Jul 31 08:42:21 2014 -0500
+
+    Makefile added
+    closes #1, closes #12;
+
+commit 58a554eb3515a6b5fbc1a4ef87aeae8c4369f7f2
+Author: Andrew Vohl <vohl0803@cs.utexas.edu>
+Date:   Mon Jul 28 12:03:22 2014 -0500
+
+    Second Push
+
+commit bf04427fa24592ca4c563e583a4bf32d4d672618
+Author: Andrew Vohl <vohl0803@cs.utexas.edu>
+Date:   Mon Jul 28 11:58:43 2014 -0500
+
+    First Commit
